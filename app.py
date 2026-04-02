@@ -14,7 +14,7 @@ def load_trained_model():
     model = load_model("alzheimers_final_model.keras", compile=False)
     return model
 
-model = load_trained_model()
+model = None
 
 def preprocess_image(uploaded_file):
     img = Image.open(uploaded_file).convert("RGB")
@@ -24,7 +24,7 @@ def preprocess_image(uploaded_file):
     img_array = np.expand_dims(img_array, axis=0)
     return display_img, img_array
 
-def predict_image(img_array):
+def predict_image(img_array, model):
     predictions = model.predict(img_array)[0]
     predicted_index = np.argmax(predictions)
     predicted_class = CLASS_NAMES[predicted_index]
@@ -48,7 +48,11 @@ if uploaded_file is not None:
     st.image(display_img, caption="Uploaded MRI", use_container_width=True)
 
     if st.button("Predict"):
-        predicted_class, confidence, predictions = predict_image(img_array)
+        if "model" not in st.session_state:
+            st.session_state.model = load_trained_model()
+
+        model = st.session_state.model
+        predicted_class, confidence, predictions = predict_image(img_array,model)
 
         st.success(f"Predicted Class: {predicted_class}")
         st.info(f"Confidence: {confidence:.2f}%")
