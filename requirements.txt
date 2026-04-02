@@ -1,7 +1,7 @@
 streamlit
-tensorflow
+tensorflow==2.21.0
 numpy
 pillow
 matplotlib
 h5py
-keras==2.13.1
+keras==3.13.2
