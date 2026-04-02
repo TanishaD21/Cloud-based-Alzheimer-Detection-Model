@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np
-from tensorflow.keras.models import load_model
+from tensorflow.keras.models import load_model, Model
 from PIL import Image
 import matplotlib.pyplot as plt
 
@@ -11,7 +11,7 @@ CLASS_NAMES = ['MildDemented', 'ModerateDemented', 'NonDemented', 'VeryMildDemen
 
 @st.cache_resource
 def load_trained_model():
-    model = load_model("model_compatible.h5", compile=False)
+    model = load_model("model_clean.h5", compile=False)
     return model
 
 model = None
