@@ -11,7 +11,7 @@ CLASS_NAMES = ['MildDemented', 'ModerateDemented', 'NonDemented', 'VeryMildDemen
 
 @st.cache_resource
 def load_trained_model():
-    model = load_model("alzheimers_final_model.keras")
+    model = load_model("alzheimers_final_model.keras", compile=False)
     return model
 
 model = load_trained_model()
